@@ -6,9 +6,9 @@ namespace eCommerce.Tables
     {
         public int ID { get; set; }
         public DateTime Date { get; set; }
-        public signUp userID { get; set; }
-        public Payment paymentID { get; set; }
-        public Product productID { get; set; }
+        public signUp user { get; set; }
+        public Payment payment { get; set; }
+        public Product product { get; set; }
         public long invoiceNumber { get; set; }
         public string orderStatus { get; set; }
     }
