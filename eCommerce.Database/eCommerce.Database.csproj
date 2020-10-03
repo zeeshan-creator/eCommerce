@@ -60,6 +60,10 @@
     <Compile Include="Migrations\202010021747502_Initialized.designer.cs">
       <DependentUpon>202010021747502_Initialized.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010031205227_Removed_baseEntities.cs" />
+    <Compile Include="Migrations\202010031205227_Removed_baseEntities.designer.cs">
+      <DependentUpon>202010031205227_Removed_baseEntities.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -79,6 +83,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202010021747502_Initialized.resx">
       <DependentUpon>202010021747502_Initialized.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010031205227_Removed_baseEntities.resx">
+      <DependentUpon>202010031205227_Removed_baseEntities.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
