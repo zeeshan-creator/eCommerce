@@ -1,7 +1,9 @@
 ﻿namespace eCommerce.Tables
 {
-    public class Product : baseEntities
+    public class Product
     {
+        public int ID { get; set; }
+        public string Name { get; set; }
         public decimal Price { get; set; }
         public string Image { get; set; }
         public string Description { get; set; }
