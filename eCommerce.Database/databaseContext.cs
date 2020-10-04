@@ -4,7 +4,7 @@ using System.Data.Entity;
 
 namespace eCommerce.Database
 {
-    internal class databaseContext : DbContext
+    public class databaseContext : DbContext
     {
         public databaseContext() : base("eCommerceDatabaseConnection")
         {
