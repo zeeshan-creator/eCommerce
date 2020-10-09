@@ -7,6 +7,9 @@ namespace eCommerce.Tables
         public int ID { get; set; }
         public string Name { get; set; }
 
+        public int categoryID { get; set; }
+
+
         public virtual ICollection<Product> Products { get; set; }
 
         public Category category { get; set; }

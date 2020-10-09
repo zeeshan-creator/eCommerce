@@ -18,7 +18,8 @@ namespace eCommerce.Web.Controllers
         // GET: subCategories
         public ActionResult Index()
         {
-            return View(db.subCategory.ToList());
+            var subCategory = db.subCategory.Include(s => s.category);
+            return View(subCategory.ToList());
         }
 
         // GET: subCategories/Details/5
@@ -39,7 +40,7 @@ namespace eCommerce.Web.Controllers
         // GET: subCategories/Create
         public ActionResult Create()
         {
-            ViewBag.category = new SelectList(db.Category, "ID", "Name");
+            ViewBag.categoryID = new SelectList(db.Category, "ID", "Name");
             return View();
         }
 
@@ -48,7 +49,7 @@ namespace eCommerce.Web.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,category")] subCategory subCategory)
+        public ActionResult Create([Bind(Include = "ID,Name,categoryID")] subCategory subCategory)
         {
             if (ModelState.IsValid)
             {
@@ -57,6 +58,7 @@ namespace eCommerce.Web.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.categoryID = new SelectList(db.Category, "ID", "Name", subCategory.categoryID);
             return View(subCategory);
         }
 
@@ -72,6 +74,7 @@ namespace eCommerce.Web.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.categoryID = new SelectList(db.Category, "ID", "Name", subCategory.categoryID);
             return View(subCategory);
         }
 
@@ -80,7 +83,7 @@ namespace eCommerce.Web.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name")] subCategory subCategory)
+        public ActionResult Edit([Bind(Include = "ID,Name,categoryID")] subCategory subCategory)
         {
             if (ModelState.IsValid)
             {
@@ -88,6 +91,7 @@ namespace eCommerce.Web.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+            ViewBag.categoryID = new SelectList(db.Category, "ID", "Name", subCategory.categoryID);
             return View(subCategory);
         }
 
