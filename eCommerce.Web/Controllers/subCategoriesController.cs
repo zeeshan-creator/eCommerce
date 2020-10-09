@@ -7,115 +7,113 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using eCommerce.Database;
-using eCommerce.Services;
 using eCommerce.Tables;
 
 namespace eCommerce.Web.Controllers
 {
-    public class CategoriesController : Controller
+    public class subCategoriesController : Controller
     {
         private databaseContext db = new databaseContext();
 
-        private CategoryServices categoryServices = new CategoryServices();
-
-        // GET: Categories
+        // GET: subCategories
         public ActionResult Index()
         {
-            var categories = categoryServices.getCategory();
-            return View(categories);
+            return View(db.subCategory.ToList());
         }
 
-        // GET: Categories/Details/5
+        // GET: subCategories/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            var category = categoryServices.getCategory(id);
-
-            if (category == null)
+            subCategory subCategory = db.subCategory.Find(id);
+            if (subCategory == null)
             {
-                return HttpNotFound("Page Not Found");
+                return HttpNotFound();
             }
-            return View(category);
+            return View(subCategory);
         }
 
-        // GET: Categories/Create
+        // GET: subCategories/Create
         public ActionResult Create()
         {
+            ViewBag.category = new SelectList(db.Category, "ID", "Name");
             return View();
         }
 
-        // POST: Categories/Create
+        // POST: subCategories/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name")] Category category)
+        public ActionResult Create([Bind(Include = "ID,Name,category")] subCategory subCategory)
         {
             if (ModelState.IsValid)
             {
-                categoryServices.createCategory(category);
+                db.subCategory.Add(subCategory);
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(category);
+
+            return View(subCategory);
         }
 
-        // GET: Categories/Edit/5
+        // GET: subCategories/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            var category = categoryServices.getCategory(id);
-
-            if (category == null)
+            subCategory subCategory = db.subCategory.Find(id);
+            if (subCategory == null)
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return View(subCategory);
         }
 
-        // POST: Categories/Edit/5
+        // POST: subCategories/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name")] Category category)
+        public ActionResult Edit([Bind(Include = "ID,Name")] subCategory subCategory)
         {
             if (ModelState.IsValid)
             {
-                categoryServices.updateCategory(category);
+                db.Entry(subCategory).State = EntityState.Modified;
+                db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(category);
+            return View(subCategory);
         }
 
-        // GET: Categories/Delete/5
+        // GET: subCategories/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            var category = categoryServices.getCategory(id);
-
-            if (category == null)
+            subCategory subCategory = db.subCategory.Find(id);
+            if (subCategory == null)
             {
                 return HttpNotFound();
             }
-            return View(category);
+            return View(subCategory);
         }
 
-        // POST: Categories/Delete/5
+        // POST: subCategories/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            categoryServices.deleteCategory(id);
+            subCategory subCategory = db.subCategory.Find(id);
+            db.subCategory.Remove(subCategory);
+            db.SaveChanges();
             return RedirectToAction("Index");
         }
 
